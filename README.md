@@ -19,6 +19,25 @@ The project is developed using mainly DDD (Domain Drive Development) in order to
 | Typing       | MyPy        |
 | Dependencies | Poetry      |
 
+## Project structure
+```
+tweet-sentiment-analysis/
+├── .github
+│   └── GitHub Actions defined for CI/CD
+├── docker
+│   └── infrastructure services used in the project in a containerized environment
+├── README.md
+├── pyproject.toml
+├── uv.lock
+├── .gitignore
+├── docs/
+│   └── markdown files with documentation regarding the project
+├── src/
+│   └── services and code written in Python
+└── tests/
+    └── test cases
+```
+
 ## CI/CD
 Some GitHub Actions will be defined to check the typing, lint and formatting of the application.
 The application is made to be run locally, however, checks on pull requests must be met to ensure we don't break any previous features.
