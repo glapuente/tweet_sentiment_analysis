@@ -1,0 +1,35 @@
+services:
+  mysql:
+    image: mysql:latest
+    container_name: mysql-analytics
+    environment:
+      MYSQL_DATABASE: shop
+      MYSQL_USER: shop
+      MYSQL_PASSWORD: shop
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  kafka:
+    image: apache/kafka:latest
+    container_name: kafka-analytics
+    ports:
+      - "9092:9092"
+
+  superset:
+    env_file:
+      - path: .env
+        required: true
+    ports:
+      - ${SUPERSET_PORT:-8088}:8088
+    image: apache/superset:latest
+    container_name: superset-analytics
+
+
+#TODO: somehow, superset won't start properly unless I perform `superset db upgrade` directly in the Docker image; that way Alembic migrations run and populate some needed tables
+#TODO: another found issue is that SuperSet requires an initial username and password, to set it, you can do `docker compose exec superset flask fab create-admin` after the containers are running
+
+volumes:
+  mysql_data:
