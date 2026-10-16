@@ -8,6 +8,7 @@ This section briefly explains the technical details of the project.
 
 ## Infrastructure
 In order to test several services, containerized applications are set up and used altogether to demonstrate their interoperability.
+<img alt="architecture_diagram.png" src="docs/architecture_diagram.png" height="500" />
 
 ## Development
 The project is developed using mainly DDD (Domain Drive Development) in order to ensure maintainability and robustness of the application.
@@ -15,7 +16,12 @@ The project is developed using mainly DDD (Domain Drive Development) in order to
 | Scope        | Library     |
 | -----------  | ----------- |
 | Linter       | Ruff        |
+| Typing       | MyPy        |
 | Dependencies | Poetry      |
+
+## CI/CD
+Some GitHub Actions will be defined to check the typing, lint and formatting of the application.
+The application is made to be run locally, however, checks on pull requests must be met to ensure we don't break any previous features.
 
 # How to run?
 In order to run the project, you must have the following installed:
