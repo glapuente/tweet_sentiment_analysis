@@ -1,5 +1,6 @@
 # Real time social analysis
-In the context of the coming Spanish presidential elections, this project will gather information on social media on that matter and perform sentiment analysis on it.
+The project aims to perform some sentiment analysis on Twitter data. The dataset used is openly available and the main study area of [Twitter sentiment classification using distant supervision](https://www-cs.stanford.edu/people/alecmgo/papers/TwitterDistantSupervision09.pdf).
+The initial idea was to fetch Twitter data in a streaming manner, but because [their platform no longer offers a free tier](https://developer.x.com/) a message producer will be used instead.
 Additionally, some simple dashboards can be shown too.
 In order to keep the project as open and freely available as possible, free or open data sources are used, along with open source projects. 
 
