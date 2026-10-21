@@ -1,6 +1,6 @@
 from abc import abstractmethod, ABC
 from typing import List
-from tweet_producer.domain.model.message import Message
+from tweet_producer.domain.model.message import ProcessedMessage
 
 
 class MessageRepository(ABC):
@@ -12,5 +12,5 @@ class MessageRepository(ABC):
     @abstractmethod
     def fetch_messages(
         self,
-    ) -> List[Message]:
+    ) -> List[ProcessedMessage]:
         ...

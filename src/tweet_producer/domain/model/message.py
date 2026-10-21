@@ -13,7 +13,7 @@ class RawMessage:
 
 
 @dataclass(frozen=True)
-class Message:
+class ProcessedMessage:
     username: str
     text: str
     published_at: datetime
