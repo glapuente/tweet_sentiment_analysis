@@ -6,9 +6,11 @@ from tweet_producer.infrastructure.adapter.inbound.tweet_adapter import TweetRep
 if __name__ == '__main__':
     print("Producing tweets...")
     load_dotenv()
-    political_parties = getenv('POLITICAL_PARTIES')
 
     tweet_consumer = TweetProducer(
-        message_repository=TweetRepository(),
+        message_repository=TweetRepository(
+            is_offline_mode=bool(getenv('OFFLINE_MODE')),
+            tweets_location=getenv('TWEETS_LOCATION'),
+        ),
     )
     tweet_consumer.produce_tweets()
