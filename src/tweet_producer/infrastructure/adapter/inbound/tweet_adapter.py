@@ -1,6 +1,6 @@
-from typing import List
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-
+from typing import List
+from tweet_producer.domain.model.message import Message
 
 class TweetRepository(MessageRepository):
 
@@ -10,7 +10,7 @@ class TweetRepository(MessageRepository):
 
     def fetch_messages(
         self,
-    ):
+    ) -> List[Message]:
         pass
 
 
