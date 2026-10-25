@@ -20,14 +20,10 @@ class OfflineTweetRepository(MessageRepository):
     ) -> ProcessedMessage:
         with open(self._tweets_location, mode="r", newline="", encoding="utf-8") as file:
             reader = csv.reader(file)
-
             for row in reader:
                 raw_message = RawMessage(*row)
-                print(raw_message)  # Process the current row
                 processed_message = self.__add_fake_address(raw_message)
-                print(processed_message)  # Process the current row
-                # yield processed_message
-
+                yield processed_message
                 time.sleep(message_per_second)
 
 
