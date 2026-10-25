@@ -19,4 +19,4 @@ if __name__ == '__main__':
     tweet_consumer = TweetProducer(
         message_repository=tweet_repository,
     )
-    tweet_consumer.produce_tweets()
+    tweet_consumer.produce_tweets(int(getenv('MESSAGES_PER_SECOND')))
