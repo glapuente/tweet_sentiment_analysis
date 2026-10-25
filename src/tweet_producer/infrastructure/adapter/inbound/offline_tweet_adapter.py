@@ -16,7 +16,7 @@ class OfflineTweetRepository(MessageRepository):
 
     def fetch_messages(
         self,
-        n_messages: int=None,
+        message_per_second: int=None,
     ) -> List[ProcessedMessage]:
 
         print(self._tweets_location)

@@ -13,5 +13,6 @@ class MessageRepository(ABC):
     @abstractmethod
     def fetch_messages(
         self,
+        message_per_second: int = None,
     ) -> List[ProcessedMessage]:
         ...

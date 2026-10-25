@@ -12,6 +12,7 @@ class TweetProducer:
 
     def produce_tweets(
         self,
+        message_per_second: int = None,
     ) -> None:
-        self._message_repository.fetch_messages()
+        self._message_repository.fetch_messages(message_per_second)
 
