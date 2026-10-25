@@ -1,8 +1,8 @@
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from typing import List
 from tweet_producer.domain.model.message import ProcessedMessage, RawMessage
 from faker import Faker
-import pandas as pd
+import csv
+import time
 
 
 class OfflineTweetRepository(MessageRepository):
@@ -17,26 +17,29 @@ class OfflineTweetRepository(MessageRepository):
     def fetch_messages(
         self,
         message_per_second: int=None,
-    ) -> List[ProcessedMessage]:
+    ) -> ProcessedMessage:
+        with open(self._tweets_location, mode="r", newline="", encoding="utf-8") as file:
+            reader = csv.reader(file)
 
-        print(self._tweets_location)
+            for row in reader:
+                raw_message = RawMessage(*row)
+                print(raw_message)  # Process the current row
+                processed_message = self.__add_fake_address(raw_message)
+                print(processed_message)  # Process the current row
+                # yield processed_message
 
-        tweet_chunk = pd.read_csv(
-            filepath_or_buffer=self._tweets_location,
-            chunksize=message_per_second,
-            names=list(RawMessage.__annotations__.keys()),
-        )
-        print(tweet_chunk.to_string())
-
-        #TODO: transform DataFrame before transforming it to JSON
-        # print(tweet_chunk.to_json(orient="records"))
+                time.sleep(message_per_second)
 
 
     @staticmethod
-    def __add_fake_address(tweets: List[ProcessedMessage]) -> List[ProcessedMessage]:
+    def __add_fake_address(raw_tweet: RawMessage) -> ProcessedMessage:
         fake = Faker()
-        for tweet in tweets:
-            fake.address()
+        return ProcessedMessage(
+            raw_tweet.username,
+            raw_tweet.message_text,
+            raw_tweet.published_at,
+            fake.address(),
+        )
 
 
 
