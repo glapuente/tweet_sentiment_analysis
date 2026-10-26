@@ -17,7 +17,7 @@ The project is developed using mainly DDD (Domain Drive Development) in order to
 | -----------  | ----------- |
 | Linter       | Ruff        |
 | Typing       | MyPy        |
-| Dependencies | Poetry      |
+| Dependencies | uv      |
 
 ## Project structure
 ```
