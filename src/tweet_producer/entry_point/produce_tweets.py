@@ -1,8 +1,14 @@
-from dotenv import load_dotenv
 from os import getenv
+
+from dotenv import load_dotenv
+
 from tweet_producer.application.use_cases.produce_tweets import TweetProducer
-from tweet_producer.infrastructure.adapter.inbound.offline_tweet_adapter import OfflineTweetRepository
-from tweet_producer.infrastructure.adapter.inbound.online_tweet_adapter import OnlineTweetRepository
+from tweet_producer.infrastructure.adapter.inbound.offline_tweet_adapter import (
+    OfflineTweetRepository,
+)
+from tweet_producer.infrastructure.adapter.inbound.online_tweet_adapter import (
+    OnlineTweetRepository,
+)
 
 if __name__ == '__main__':
     print("Producing tweets...")

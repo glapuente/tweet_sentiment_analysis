@@ -1,6 +1,6 @@
+
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from typing import List
-from tweet_producer.domain.model.message import ProcessedMessage, RawMessage
+from tweet_producer.domain.model.message import ProcessedMessage
 
 
 class OnlineTweetRepository(MessageRepository):
@@ -12,7 +12,7 @@ class OnlineTweetRepository(MessageRepository):
 
     def fetch_messages(
         self,
-        n_messages: int=None,
-    ) -> List[ProcessedMessage]:
+        n_messages: int | None=None,
+    ) -> list[ProcessedMessage]:
         #TODO: implement method for fetching tweets through X's API
         pass

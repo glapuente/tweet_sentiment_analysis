@@ -1,8 +1,10 @@
-from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from tweet_producer.domain.model.message import ProcessedMessage, RawMessage
-from faker import Faker
 import csv
 import time
+
+from faker import Faker
+
+from tweet_producer.application.port.inbound.message_repository import MessageRepository
+from tweet_producer.domain.model.message import ProcessedMessage, RawMessage
 
 
 class OfflineTweetRepository(MessageRepository):
@@ -16,7 +18,7 @@ class OfflineTweetRepository(MessageRepository):
 
     def fetch_messages(
         self,
-        message_per_second: int=None,
+        message_per_second: int | None=None,
     ) -> ProcessedMessage:
         with open(self._tweets_location, mode="r", newline="", encoding="utf-8") as file:
             reader = csv.reader(file)
