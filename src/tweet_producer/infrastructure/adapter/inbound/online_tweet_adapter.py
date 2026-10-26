@@ -1,3 +1,4 @@
+from collections.abc import Generator
 
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
 from tweet_producer.domain.model.message import ProcessedMessage
@@ -12,7 +13,7 @@ class OnlineTweetRepository(MessageRepository):
 
     def fetch_messages(
         self,
-        n_messages: int | None=None,
-    ) -> list[ProcessedMessage]:
+        n_messages: float,
+    ) -> Generator[ProcessedMessage]:
         #TODO: implement method for fetching tweets through X's API
-        pass
+        raise NotImplementedError

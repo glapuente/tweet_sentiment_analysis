@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from collections.abc import Generator
 
 from tweet_producer.domain.model.message import ProcessedMessage
 
@@ -13,6 +14,6 @@ class MessageRepository(ABC):
     @abstractmethod
     def fetch_messages(
         self,
-        message_per_second: int | None = None,
-    ) -> list[ProcessedMessage]:
+        message_per_second: float,
+    ) -> Generator[ProcessedMessage]:
         ...
