@@ -1,0 +1,44 @@
+# this workflow installs Python, dependencies and performs checks for formatting, tests, typing, ...
+
+name: 🐍 Python checks on Pull Request
+on:
+  pull_request:
+    paths:
+      - "src/**"
+  push:
+    branches:
+      - main
+    paths:
+      - "src/**"
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: 🔍 Code formatting
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⚙️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⚙️ Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: 🐍 Setting up Python
+        run: uv python install
+
+      - name: ⬇️ Install dependencies
+        run: uv sync --locked
+
+      - name: 🔍 Ruff linting
+        run: uv run ruff check src/
+
+      - name: 🔍 Ruff formatting
+        run: uv run ruff format --check src/
+
+      - name: 🔍 MyPy checking
+        run: uv run mypy src/
