@@ -21,7 +21,7 @@ def tweet_producer():
     load_dotenv()
 
     tweet_repository: MessageRepository
-    if bool(getenv("OFFLINE_MODE")):
+    if getenv("OFFLINE_MODE") == 'true':
         tweet_repository = OfflineTweetRepository(
             tweets_location=getenv(
                 "TWEETS_LOCATION", "input_data/tweets/tweets_sample.csv"
