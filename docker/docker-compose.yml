@@ -26,7 +26,7 @@ services:
       kafka-analytics:
         condition: service_started
     environment:
-      KAFKA_TOPIC: ${KAFKA_TOPIC:-my-app-events}
+      KAFKA_TOPIC: ${KAFKA_TOPIC:-test-topic}
     entrypoint: [ "/bin/sh", "-c" ]
     command:
       - |
