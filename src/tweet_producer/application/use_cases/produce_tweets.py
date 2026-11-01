@@ -17,4 +17,3 @@ class TweetProducer:
     ) -> None:
         for message in self._message_repository.fetch_messages(message_per_second):
             self._outbound_message_repository.append_message(processed_message=message)
-            print(message)

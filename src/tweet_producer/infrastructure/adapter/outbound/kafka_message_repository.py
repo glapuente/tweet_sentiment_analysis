@@ -1,3 +1,4 @@
+from confluent_kafka import Producer
 from tweet_producer.application.port.outbound.outbound_message_repository import OutboundMessageRepository
 from tweet_producer.domain.model.message import ProcessedMessage
 
@@ -12,4 +13,9 @@ class KafkaMessageRepository(OutboundMessageRepository):
 
 
     def append_message(self, processed_message: ProcessedMessage) -> None:
-        raise NotImplemented
+        producer = Producer({
+            'bootstrap.servers': 'localhost:9092',
+        })
+        producer.produce(self._kafka_topic, processed_message.to_json())
+        producer.flush()
+        print(processed_message.to_json())
