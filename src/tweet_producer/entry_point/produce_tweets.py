@@ -28,6 +28,8 @@ if __name__ == "__main__":
 
     tweet_consumer = TweetProducer(
         message_repository=tweet_repository,
-        outbound_message_repository=KafkaMessageRepository(),
+        outbound_message_repository=KafkaMessageRepository(
+            kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
+        ),
     )
     tweet_consumer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
