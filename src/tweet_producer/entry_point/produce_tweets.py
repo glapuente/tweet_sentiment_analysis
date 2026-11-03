@@ -11,6 +11,7 @@ from tweet_producer.infrastructure.adapter.inbound.online_tweet_adapter import (
     OnlineTweetRepository,
 )
 from tweet_producer.infrastructure.adapter.outbound.kafka_message_repository import KafkaMessageRepository
+from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
 if __name__ == "__main__":
     print("Producing tweets...")
@@ -30,6 +31,10 @@ if __name__ == "__main__":
         message_repository=tweet_repository,
         outbound_message_repository=KafkaMessageRepository(
             kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
+            kafka_configuration=KafkaConfiguration(
+                kafka_host=getenv("KAFKA_HOST", "localhost"),
+                kafka_port=getenv("KAFKA_PORT", 9092),
+            )
         ),
     )
     tweet_consumer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
