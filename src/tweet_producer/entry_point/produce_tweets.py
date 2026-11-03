@@ -35,8 +35,8 @@ if __name__ == "__main__":
             kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
             kafka_configuration=KafkaConfiguration(
                 kafka_host=getenv("KAFKA_HOST", "localhost"),
-                kafka_port=getenv("KAFKA_PORT", 9092),
-            )
+                kafka_port=int(getenv("KAFKA_PORT", "9092")),
+            ),
         ),
     )
     tweet_consumer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
