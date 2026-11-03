@@ -10,7 +10,9 @@ from tweet_producer.infrastructure.adapter.inbound.offline_tweet_adapter import 
 from tweet_producer.infrastructure.adapter.inbound.online_tweet_adapter import (
     OnlineTweetRepository,
 )
-from tweet_producer.infrastructure.adapter.outbound.kafka_message_repository import KafkaMessageRepository
+from tweet_producer.infrastructure.adapter.outbound.kafka_message_repository import (
+    KafkaMessageRepository,
+)
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
 if __name__ == "__main__":

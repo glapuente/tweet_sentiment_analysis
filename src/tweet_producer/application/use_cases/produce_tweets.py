@@ -1,5 +1,7 @@
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from tweet_producer.application.port.outbound.outbound_message_repository import OutboundMessageRepository
+from tweet_producer.application.port.outbound.outbound_message_repository import (
+    OutboundMessageRepository,
+)
 
 
 class TweetProducer:
