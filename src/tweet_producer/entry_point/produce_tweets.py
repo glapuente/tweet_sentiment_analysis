@@ -15,7 +15,8 @@ from tweet_producer.infrastructure.adapter.outbound.kafka_message_repository imp
 )
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
-if __name__ == "__main__":
+
+def tweet_producer():
     print("Producing tweets...")
     load_dotenv()
 
@@ -40,3 +41,7 @@ if __name__ == "__main__":
         ),
     )
     tweet_consumer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
+
+
+if __name__ == "__main__":
+    tweet_producer()
