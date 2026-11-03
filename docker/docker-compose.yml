@@ -47,6 +47,22 @@ services:
         echo "Topic $$KAFKA_TOPIC is ready"
     restart: "no"
 
+  message-producer:
+    container_name: message-producer
+    depends_on:
+      kafka-init:
+        condition: service_completed_successfully
+      kafka-analytics:
+        condition: service_started
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    env_file:
+      - ../.env
+    volumes:
+      - ../data:/app/data:ro
+    restart: no
+
 
 volumes:
   kafka_data:
