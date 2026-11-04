@@ -27,3 +27,4 @@ packages = [
 
 [project.scripts]
 tweet_producer = "tweet_producer.entry_point.produce_tweets:tweet_producer"
+tweet_consumer = "tweet_producer.entry_point.consume_tweets:tweet_consumer"
