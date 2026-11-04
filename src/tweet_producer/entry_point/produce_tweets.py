@@ -30,7 +30,7 @@ def tweet_producer():
     else:
         tweet_repository = OnlineTweetRepository()
 
-    tweet_consumer = TweetProducer(
+    message_producer = TweetProducer(
         message_repository=tweet_repository,
         outbound_message_repository=KafkaMessageRepository(
             kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
@@ -40,7 +40,7 @@ def tweet_producer():
             ),
         ),
     )
-    tweet_consumer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
+    message_producer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
 
 
 if __name__ == "__main__":
