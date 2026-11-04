@@ -183,3 +183,8 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# ignore all CSV files
+*.csv
+# keep small sample CSV files
+!*.sample.csv
