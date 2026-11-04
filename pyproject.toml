@@ -12,6 +12,7 @@ dependencies = [
     "faker>=40.43.0",
     "python-dotenv>=1.2.4",
     "confluent-kafka>=2.16.1",
+    "pyspark>=4.3.0",
 ]
 
 
