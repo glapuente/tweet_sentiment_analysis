@@ -10,8 +10,8 @@ from tweet_producer.infrastructure.adapter.inbound.offline_tweet_adapter import 
 from tweet_producer.infrastructure.adapter.inbound.online_tweet_adapter import (
     OnlineTweetRepository,
 )
-from tweet_producer.infrastructure.adapter.outbound.kafka_message_repository import (
-    KafkaMessageRepository,
+from tweet_producer.infrastructure.adapter.outbound.kafka_message_producer import (
+    KafkaMessageProducer,
 )
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
@@ -32,7 +32,7 @@ def tweet_producer():
 
     message_producer = TweetProducer(
         message_repository=tweet_repository,
-        outbound_message_repository=KafkaMessageRepository(
+        outbound_message_repository=KafkaMessageProducer(
             kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
             kafka_configuration=KafkaConfiguration(
                 kafka_host=getenv("KAFKA_HOST", "localhost"),

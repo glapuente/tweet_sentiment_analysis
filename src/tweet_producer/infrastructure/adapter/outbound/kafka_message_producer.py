@@ -7,7 +7,7 @@ from tweet_producer.domain.model.message import ProcessedMessage
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
 
-class KafkaMessageRepository(OutboundMessageRepository):
+class KafkaMessageProducer(OutboundMessageRepository):
     def __init__(
         self,
         kafka_topic: str,
