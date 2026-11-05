@@ -21,6 +21,3 @@ RUN uv sync --frozen --no-dev
 
 # make the virtualenv available
 ENV PATH="/app/.venv/bin:$PATH"
-
-# start the application
-CMD ["tweet_producer"]
