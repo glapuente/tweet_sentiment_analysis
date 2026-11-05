@@ -32,14 +32,6 @@ def tweet_consumer():
     else:
         from pyspark.sql import SparkSession
 
-        import os
-        import sys
-
-        #TODO: check how I could solve this..
-        os.environ["PYSPARK_PYTHON"] = sys.executable
-        os.environ["PYSPARK_DRIVER_PYTHON"] = sys.executable
-
-
         tweet_repository = SparkKafkaMessageConsumer(
             kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
             kafka_configuration=KafkaConfiguration(
