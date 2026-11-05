@@ -50,6 +50,7 @@ def tweet_consumer():
                 SparkSession.builder
                 .master("local[*]")
                 .config("spark.sql.execution.pyspark.udf.faulthandler.enabled", "true")
+                .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.13:4.3.0")
                 .appName(getenv("APP_NAME", "TweetProducer"))
                 .getOrCreate()
             ),
