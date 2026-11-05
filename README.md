@@ -33,6 +33,8 @@ tweet-sentiment-analysis/
 ├── .gitignore
 ├── docs/
 │   └── markdown files with documentation regarding the project
+├── scripts/
+│   └── helper scripts to manage the application
 ├── src/
 │   └── services and code written in Python
 └── tests/
