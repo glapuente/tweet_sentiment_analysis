@@ -9,4 +9,4 @@ class KafkaConfiguration:
 
     @property
     def kafka_connection_url(self) -> str:
-        return f"{self._kafka_host}:{self._kafka_port}"
+        return f"{self.kafka_host}:{self.kafka_port}"
