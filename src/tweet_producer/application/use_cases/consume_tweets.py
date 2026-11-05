@@ -8,15 +8,11 @@ class TweetConsumer:
     def __init__(
         self,
         message_repository: MessageRepository,
-        # outbound_message_repository: OutboundMessageRepository,
     ):
         self._message_repository = message_repository
-        # self._outbound_message_repository = outbound_message_repository
 
     def consume_tweets(
         self,
         message_per_second: float,
     ) -> None:
         self._message_repository.fetch_messages(message_per_second)
-        # for message in self._message_repository.fetch_messages(message_per_second):
-        #     self._outbound_message_repository.append_message(processed_message=message)
