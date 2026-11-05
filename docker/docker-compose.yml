@@ -61,6 +61,7 @@ services:
       - ../.env
     volumes:
       - ../data:/app/data:ro
+    command: ["tweet_producer"]
     restart: no
 
   postgres:
