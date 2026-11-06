@@ -15,6 +15,13 @@ class Message:
             indent=4,
         )
 
+    @classmethod
+    def message_fields(cls) -> list[str]:
+        """
+        Returns the attributes of a Dataclass as a list of strings
+        """
+        return [field.name for field in fields(cls)]
+
 
 @dataclass(frozen=True)
 class RawMessage(Message):
