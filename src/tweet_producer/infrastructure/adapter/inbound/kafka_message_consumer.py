@@ -1,9 +1,7 @@
-from typing import Generator
-
 from pyspark.sql import SparkSession
-
+import pyspark.sql.functions as F
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from tweet_producer.domain.model.message import ProcessedMessage
+from tweet_producer.domain.model.message import ProcessedMessage, dataclass_to_pyspark_schema
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
 
@@ -32,13 +30,19 @@ class SparkKafkaMessageConsumer(MessageRepository):
 
         query = (
             streaming_df
-            .selectExpr(
-                "CAST(key AS STRING)",
-                "CAST(value AS STRING)",
-                "topic",
-                "partition",
-                "offset",
-                "timestamp"
+            .withColumn(
+                "json_message",
+                F.from_json(
+                    F.col("value").cast("string"),
+                    dataclass_to_pyspark_schema(ProcessedMessage),
+                )
+            )
+            .select(
+                F.col("json_message.*"),
+                F.col("topic"),
+                F.col("partition"),
+                F.col("offset"),
+                F.col("timestamp"),
             )
             .writeStream
             .format("console")
