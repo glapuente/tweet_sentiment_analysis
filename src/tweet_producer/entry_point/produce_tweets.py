@@ -10,8 +10,8 @@ from tweet_producer.infrastructure.adapter.inbound.offline_tweet_adapter import 
 from tweet_producer.infrastructure.adapter.inbound.online_tweet_adapter import (
     OnlineTweetRepository,
 )
-from tweet_producer.infrastructure.adapter.outbound.kafka_message_repository import (
-    KafkaMessageRepository,
+from tweet_producer.infrastructure.adapter.outbound.kafka_message_producer import (
+    KafkaMessageProducer,
 )
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
@@ -21,7 +21,7 @@ def tweet_producer():
     load_dotenv()
 
     tweet_repository: MessageRepository
-    if bool(getenv("OFFLINE_MODE")):
+    if getenv("OFFLINE_MODE") == "true":
         tweet_repository = OfflineTweetRepository(
             tweets_location=getenv(
                 "TWEETS_LOCATION", "input_data/tweets/tweets_sample.csv"
@@ -30,9 +30,9 @@ def tweet_producer():
     else:
         tweet_repository = OnlineTweetRepository()
 
-    tweet_consumer = TweetProducer(
+    message_producer = TweetProducer(
         message_repository=tweet_repository,
-        outbound_message_repository=KafkaMessageRepository(
+        outbound_message_repository=KafkaMessageProducer(
             kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
             kafka_configuration=KafkaConfiguration(
                 kafka_host=getenv("KAFKA_HOST", "localhost"),
@@ -40,7 +40,7 @@ def tweet_producer():
             ),
         ),
     )
-    tweet_consumer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
+    message_producer.produce_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
 
 
 if __name__ == "__main__":

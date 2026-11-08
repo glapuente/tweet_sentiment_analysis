@@ -61,6 +61,7 @@ services:
       - ../.env
     volumes:
       - ../data:/app/data:ro
+    command: ["tweet_producer"]
     restart: no
 
   postgres:
@@ -74,6 +75,21 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
+
+  message-consumer:
+    container_name: message-consumer
+    depends_on:
+      message-producer:
+        condition: service_started
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    env_file:
+      - ../.env
+    volumes:
+      - ../data:/app/data:ro
+    command: [ "tweet_consumer" ]
+    restart: no
 
 
 volumes:

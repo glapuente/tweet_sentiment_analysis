@@ -4,6 +4,13 @@ The initial idea was to fetch Twitter data in a streaming manner, but because [t
 Additionally, some simple dashboards can be shown too.
 In order to keep the project as open and freely available as possible, free or open data sources are used, along with open source projects. 
 
+# AI usage
+The use of AI in this particular project is close to none in order to slowly solve the problems or issues that may arise.
+It is developed just like we did in the good-old-days, slowly, no rush, relaxed, ... Like a puzzle!
+Just because Deep Blue outperformed Kasparov doesn't mean that people stopped playing chess.
+
+![Built By Humans](https://shieldcn.dev/badge/built%20by-humans.svg?variant=outline&theme=red&logo=ri%3AFaHeart&logoColor=ef4444&mode=light)
+
 # Tech stack
 This section briefly explains the technical details of the project.
 
@@ -18,7 +25,7 @@ The project is developed using mainly DDD (Domain Drive Development) in order to
 | -----------  | ----------- |
 | Linter       | Ruff        |
 | Typing       | MyPy        |
-| Dependencies | uv      |
+| Dependencies | uv          |
 
 ## Project structure
 ```
@@ -33,6 +40,8 @@ tweet-sentiment-analysis/
 ├── .gitignore
 ├── docs/
 │   └── markdown files with documentation regarding the project
+├── scripts/
+│   └── helper scripts to manage the application
 ├── src/
 │   └── services and code written in Python
 └── tests/

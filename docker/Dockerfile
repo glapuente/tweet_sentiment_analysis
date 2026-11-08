@@ -1,4 +1,13 @@
-FROM python:3.12-slim
+FROM python:3.12-slim-bookworm
+
+# install Java (required by PySpark)
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends openjdk-17-jre-headless && \
+    rm -rf /var/lib/apt/lists/*
+
+# set Java environmental variables
+ENV JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+ENV PATH="${JAVA_HOME}/bin:${PATH}"
 
 # install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
@@ -21,6 +30,3 @@ RUN uv sync --frozen --no-dev
 
 # make the virtualenv available
 ENV PATH="/app/.venv/bin:$PATH"
-
-# start the application
-CMD ["tweet_producer"]

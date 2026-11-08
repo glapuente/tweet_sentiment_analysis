@@ -1,0 +1,43 @@
+from os import getenv
+
+from dotenv import load_dotenv
+from pyspark.sql import SparkSession
+
+from tweet_producer.application.port.inbound.message_repository import MessageRepository
+from tweet_producer.application.use_cases.consume_tweets import TweetConsumer
+from tweet_producer.infrastructure.adapter.inbound.kafka_message_consumer import (
+    SparkKafkaMessageConsumer,
+)
+from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
+
+
+def tweet_consumer():
+    print("Consuming tweets...")
+    load_dotenv()
+
+    tweet_repository: MessageRepository = SparkKafkaMessageConsumer(
+        kafka_topic=getenv("KAFKA_TOPIC", "test-topic"),
+        kafka_configuration=KafkaConfiguration(
+            kafka_host=getenv("KAFKA_HOST", "localhost"),
+            kafka_port=int(getenv("KAFKA_PORT", "9092")),
+        ),
+        spark_session=(
+            SparkSession.builder.master("local[*]")
+            .config("spark.sql.execution.pyspark.udf.faulthandler.enabled", "true")
+            .config(
+                "spark.jars.packages",
+                "org.apache.spark:spark-sql-kafka-0-10_2.13:4.3.0",
+            )
+            .appName(getenv("APP_NAME", "TweetProducer"))
+            .getOrCreate()
+        ),
+    )
+
+    message_consumer = TweetConsumer(
+        message_repository=tweet_repository,
+    )
+    message_consumer.consume_tweets(float(getenv("MESSAGES_PER_SECOND", "5.0")))
+
+
+if __name__ == "__main__":
+    tweet_consumer()
