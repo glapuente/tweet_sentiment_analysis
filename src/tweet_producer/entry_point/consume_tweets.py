@@ -1,12 +1,14 @@
 from os import getenv
 
 from dotenv import load_dotenv
+from pyspark.sql import SparkSession
 
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
 from tweet_producer.application.use_cases.consume_tweets import TweetConsumer
-from tweet_producer.infrastructure.adapter.inbound.kafka_message_consumer import SparkKafkaMessageConsumer
+from tweet_producer.infrastructure.adapter.inbound.kafka_message_consumer import (
+    SparkKafkaMessageConsumer,
+)
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
-from pyspark.sql import SparkSession
 
 
 def tweet_consumer():
@@ -20,10 +22,12 @@ def tweet_consumer():
             kafka_port=int(getenv("KAFKA_PORT", "9092")),
         ),
         spark_session=(
-            SparkSession.builder
-            .master("local[*]")
+            SparkSession.builder.master("local[*]")
             .config("spark.sql.execution.pyspark.udf.faulthandler.enabled", "true")
-            .config("spark.jars.packages", "org.apache.spark:spark-sql-kafka-0-10_2.13:4.3.0")
+            .config(
+                "spark.jars.packages",
+                "org.apache.spark:spark-sql-kafka-0-10_2.13:4.3.0",
+            )
             .appName(getenv("APP_NAME", "TweetProducer"))
             .getOrCreate()
         ),

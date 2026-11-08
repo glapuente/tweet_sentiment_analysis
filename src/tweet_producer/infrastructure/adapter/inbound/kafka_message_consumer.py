@@ -1,7 +1,11 @@
-from pyspark.sql import SparkSession
 import pyspark.sql.functions as F
+from pyspark.sql import SparkSession
+
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from tweet_producer.domain.model.message import ProcessedMessage, dataclass_to_pyspark_schema
+from tweet_producer.domain.model.message import (
+    ProcessedMessage,
+    dataclass_to_pyspark_schema,
+)
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
 
@@ -17,25 +21,25 @@ class SparkKafkaMessageConsumer(MessageRepository):
         self._kafka_configuration = kafka_configuration
         self._spark_session = spark_session
 
-
     def fetch_messages(self, message_per_second: float):
         streaming_df = (
-            self._spark_session.readStream
-            .format("kafka")
-            .option("kafka.bootstrap.servers", self._kafka_configuration.kafka_connection_url)
+            self._spark_session.readStream.format("kafka")
+            .option(
+                "kafka.bootstrap.servers",
+                self._kafka_configuration.kafka_connection_url,
+            )
             .option("subscribe", self._kafka_topic)
             .option("startingOffsets", "earliest")
             .load()
         )
 
         query = (
-            streaming_df
-            .withColumn(
+            streaming_df.withColumn(
                 "json_message",
                 F.from_json(
                     F.col("value").cast("string"),
                     dataclass_to_pyspark_schema(ProcessedMessage),
-                )
+                ),
             )
             .select(
                 F.col("json_message.*"),
@@ -44,8 +48,7 @@ class SparkKafkaMessageConsumer(MessageRepository):
                 F.col("offset"),
                 F.col("timestamp"),
             )
-            .writeStream
-            .format("console")
+            .writeStream.format("console")
             .outputMode("append")
             .option("truncate", False)
             .start()

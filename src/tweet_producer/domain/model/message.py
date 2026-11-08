@@ -1,7 +1,8 @@
 import json
-from dataclasses import dataclass, is_dataclass, fields
+from dataclasses import dataclass, fields, is_dataclass
 from datetime import datetime
 from typing import get_type_hints
+
 import pyspark.sql.types as T
 
 
@@ -57,11 +58,13 @@ def dataclass_to_pyspark_schema(cls: type) -> T.StructType:
     if not is_dataclass(cls):
         raise TypeError(f"dataclass {cls.__name__} is not a dataclass")
     type_hints = get_type_hints(cls)
-    return T.StructType([
-        T.StructField(
-            field.name,
-            PYTHON_TO_PYSPARK_MAPPING[type_hints[field.name]],
-            True,
-        )
-        for field in fields(cls)
-    ])
+    return T.StructType(
+        [
+            T.StructField(
+                field.name,
+                PYTHON_TO_PYSPARK_MAPPING[type_hints[field.name]],
+                True,
+            )
+            for field in fields(cls)
+        ]
+    )
