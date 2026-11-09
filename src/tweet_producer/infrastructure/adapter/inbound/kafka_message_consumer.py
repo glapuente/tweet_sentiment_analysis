@@ -2,13 +2,13 @@ import pyspark.sql.functions as F
 from pyspark.sql import SparkSession
 
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
+from tweet_producer.application.use_cases.sentiment_analysis import SentimentAnalyzer
+from tweet_producer.domain.model.common import dataclass_to_pyspark_schema
 from tweet_producer.domain.model.message import (
     ProcessedMessage,
 )
-from tweet_producer.domain.model.common import dataclass_to_pyspark_schema
 from tweet_producer.domain.model.sentiment_analysis import SentimentSchema
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
-from tweet_producer.application.use_cases.sentiment_analysis import SentimentAnalyzer
 
 
 class SparkKafkaMessageConsumer(MessageRepository):
@@ -48,7 +48,7 @@ class SparkKafkaMessageConsumer(MessageRepository):
                 "sentiment_analysis",
                 F.udf(
                     self._sentiment_analyzer.analyze_sentiment,
-                    dataclass_to_pyspark_schema(SentimentSchema)
+                    dataclass_to_pyspark_schema(SentimentSchema),
                 )(F.col("json_message.text")),
             )
             .select(

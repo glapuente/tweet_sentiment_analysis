@@ -1,11 +1,11 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
 from tweet_producer.domain.model.sentiment_analysis import SentimentSchema
 
 
 class SentimentAnalyzer:
     def __init__(self):
         self._analyzer = SentimentIntensityAnalyzer()
-
 
     def analyze_sentiment(self, message: str) -> SentimentSchema:
         """
