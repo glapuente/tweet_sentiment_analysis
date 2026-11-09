@@ -6,7 +6,9 @@ from tweet_producer.domain.model.message import (
     ProcessedMessage,
     dataclass_to_pyspark_schema,
 )
+from tweet_producer.domain.model.sentiment_analysis import SENTIMENT_SCHEMA
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
+from tweet_producer.application.use_cases.sentiment_analysis import SentimentAnalyzer
 
 
 class SparkKafkaMessageConsumer(MessageRepository):
@@ -20,6 +22,7 @@ class SparkKafkaMessageConsumer(MessageRepository):
         self._kafka_topic = kafka_topic
         self._kafka_configuration = kafka_configuration
         self._spark_session = spark_session
+        self._sentiment_analyzer = SentimentAnalyzer()
 
     def fetch_messages(self, message_per_second: float):
         streaming_df = (
@@ -41,8 +44,16 @@ class SparkKafkaMessageConsumer(MessageRepository):
                     dataclass_to_pyspark_schema(ProcessedMessage),
                 ),
             )
+            .withColumn(
+                "sentiment_analysis",
+                F.udf(
+                    self._sentiment_analyzer.analyze_sentiment,
+                    SENTIMENT_SCHEMA
+                )(F.col("json_message.text")),
+            )
             .select(
                 F.col("json_message.*"),
+                F.col("sentiment_analysis.*"),
                 F.col("topic"),
                 F.col("partition"),
                 F.col("offset"),
