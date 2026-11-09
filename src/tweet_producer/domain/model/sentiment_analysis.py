@@ -1,10 +1,10 @@
-import pyspark.sql.types as T
+from dataclasses import dataclass
 
 
-SENTIMENT_SCHEMA: T.StructType = T.StructType([
-    T.StructField("sentiment", T.StringType()),
-    T.StructField("compound", T.DoubleType()),
-    T.StructField("positive", T.DoubleType()),
-    T.StructField("negative", T.DoubleType()),
-    T.StructField("neutral", T.DoubleType()),
-])
+@dataclass(frozen=True)
+class SentimentSchema:
+    sentiment: str
+    compound: float
+    positive: float
+    negative: float
+    neutral: float
