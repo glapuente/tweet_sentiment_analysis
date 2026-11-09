@@ -1,4 +1,5 @@
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+from tweet_producer.domain.model.sentiment_analysis import SentimentSchema
 
 
 class SentimentAnalyzer:
@@ -6,18 +7,18 @@ class SentimentAnalyzer:
         self._analyzer = SentimentIntensityAnalyzer()
 
 
-    def analyze_sentiment(self, message) -> dict:
+    def analyze_sentiment(self, message: str) -> SentimentSchema:
         """
         main function which returns the sentiment inclination of a given message
         """
         if not message:
-            return {
-                "sentiment": "neutral",
-                "compound": 0.0,
-                "positive": 0.0,
-                "negative": 0.0,
-                "neutral": 0.0,
-            }
+            return SentimentSchema(
+                "neutral",
+                0.0,
+                0.0,
+                0.0,
+                0.0,
+            )
 
         scores = self._analyzer.polarity_scores(message)
 
@@ -30,10 +31,10 @@ class SentimentAnalyzer:
         else:
             sentiment = "neutral"
 
-        return {
-            "sentiment": sentiment,
-            "compound": compound,
-            "positive": scores["pos"],
-            "negative": scores["neg"],
-            "neutral": scores["neu"],
-        }
+        return SentimentSchema(
+            sentiment,
+            compound,
+            scores["pos"],
+            scores["neg"],
+            scores["neu"],
+        )
