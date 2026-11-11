@@ -11,7 +11,6 @@ class PostgresConfiguration:
     postgres_port: int = 5432
     postgres_driver: str = "org.postgresql.Driver"
 
-
     @property
     def postgres_connection_url(self) -> str:
         return f"jdbc:postgresql://{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"

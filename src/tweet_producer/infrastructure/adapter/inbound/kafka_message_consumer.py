@@ -2,7 +2,9 @@ import pyspark.sql.functions as F
 from pyspark.sql import SparkSession
 
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from tweet_producer.application.port.outbound.database_message_repository import DatabaseMessageRepository
+from tweet_producer.application.port.outbound.database_message_repository import (
+    DatabaseMessageRepository,
+)
 from tweet_producer.application.use_cases.sentiment_analysis import SentimentAnalyzer
 from tweet_producer.domain.model.common import dataclass_to_pyspark_schema
 from tweet_producer.domain.model.message import (
@@ -62,8 +64,7 @@ class SparkKafkaMessageConsumer(MessageRepository):
                 F.col("offset"),
                 F.col("timestamp"),
             )
-            .writeStream
-            .foreachBatch(self._database_message_repository.save_message)
+            .writeStream.foreachBatch(self._database_message_repository.save_message)
             .outputMode("append")
             .start()
         )

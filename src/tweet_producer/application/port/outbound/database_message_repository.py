@@ -1,7 +1,7 @@
-from typing import Collection
+from abc import ABC, abstractmethod
+from collections.abc import Collection
 
 from tweet_producer.domain.model.message import ProcessedMessage
-from abc import ABC, abstractmethod
 
 
 class DatabaseMessageRepository(ABC):
