@@ -8,7 +8,9 @@ from tweet_producer.application.use_cases.consume_tweets import TweetConsumer
 from tweet_producer.infrastructure.adapter.inbound.kafka_message_consumer import (
     SparkKafkaMessageConsumer,
 )
+from tweet_producer.infrastructure.adapter.outbound.postgres_message_repository import PostgresMessageRepository
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
+from tweet_producer.infrastructure.config.postgres_configuration import PostgresConfiguration
 
 
 def tweet_consumer() -> None:
@@ -31,6 +33,16 @@ def tweet_consumer() -> None:
             )
             .appName(getenv("APP_NAME", "TweetProducer"))
             .getOrCreate()
+        ),
+        database_message_repository=PostgresMessageRepository(
+            postgres_configuration=PostgresConfiguration(
+                postgres_db=getenv("POSTGRES_DB", "database"),
+                postgres_table_name=getenv("POSTGRES_TABLE_NAME", "table_name"),
+                postgres_host=getenv("DATABASE_HOST", "localhost"),
+                postgres_user=getenv("DATABASE_USER", "user"),
+                postgres_password=getenv("POSTGRES_PASSWORD", ""),
+                postgres_port=int(getenv("POSTGRES_PORT", "5432")),
+            )
         ),
     )
 
