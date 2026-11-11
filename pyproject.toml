@@ -1,7 +1,7 @@
 [project]
 name = "tweet-sentiment-analysis"
-version = "0.6.0"
-description = ""
+version = "0.7.0"
+description = "Simple self-contained project for sentiment analysis on social media messages"
 authors = [
     {name = "glapuente",email = "glapuentevalea@gmail.com"}
 ]
@@ -13,7 +13,12 @@ dependencies = [
     "python-dotenv>=1.2.4",
     "confluent-kafka>=2.16.1",
     "pyspark>=4.3.0",
+    "vadersentiment>=3.3.2",
 ]
+
+[[tool.mypy.overrides]]
+module = ["vaderSentiment.*"]
+ignore_missing_imports = true
 
 
 [build-system]

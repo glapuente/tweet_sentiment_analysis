@@ -11,7 +11,7 @@ from tweet_producer.infrastructure.adapter.inbound.kafka_message_consumer import
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
 
-def tweet_consumer():
+def tweet_consumer() -> None:
     print("Consuming tweets...")
     load_dotenv()
 
