@@ -16,6 +16,10 @@ dependencies = [
     "vadersentiment>=3.3.2",
 ]
 
+[[tool.mypy.overrides]]
+module = ["vaderSentiment.*"]
+ignore_missing_imports = true
+
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
