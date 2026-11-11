@@ -1,6 +1,7 @@
 from typing import Collection
 
 from tweet_producer.domain.model.message import ProcessedMessage
+from abc import ABC, abstractmethod
 
 
 class DatabaseMessageRepository(ABC):
