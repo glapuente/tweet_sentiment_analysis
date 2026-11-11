@@ -26,7 +26,8 @@ def tweet_consumer() -> None:
             .config("spark.sql.execution.pyspark.udf.faulthandler.enabled", "true")
             .config(
                 "spark.jars.packages",
-                "org.apache.spark:spark-sql-kafka-0-10_2.13:4.3.0",
+                "org.apache.spark:spark-sql-kafka-0-10_2.13:4.3.0,"
+                "org.postgresql:postgresql:42.7.8"
             )
             .appName(getenv("APP_NAME", "TweetProducer"))
             .getOrCreate()
