@@ -21,7 +21,7 @@ class PostgresMessageRepository(DatabaseMessageRepository):
         try:
             processed_message.write.jdbc(
                 url=self._postgres_configuration.postgres_connection_url,
-                table="tweet_producer",
+                table=self._postgres_configuration.postgres_table_name,
                 mode="append",
                 properties=self._postgres_configuration.postgres_connection_properties,
             )

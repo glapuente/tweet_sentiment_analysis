@@ -4,6 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class PostgresConfiguration:
     postgres_db: str
+    postgres_table_name: str
     postgres_host: str
     postgres_user: str
     postgres_password: str
