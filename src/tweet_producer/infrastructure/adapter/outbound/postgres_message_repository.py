@@ -14,7 +14,7 @@ class PostgresMessageRepository(DatabaseMessageRepository):
         self._postgres_configuration = postgres_configuration
 
 
-    def save_message(self, processed_message: ProcessedMessage) -> None:
+    def save_message(self, processed_message: ProcessedMessage, batch_id: int) -> None:
         """
         Function for saving messages to a Postgres database
         """
