@@ -16,7 +16,7 @@ from tweet_producer.infrastructure.adapter.outbound.kafka_message_producer impor
 from tweet_producer.infrastructure.config.kafka_configuration import KafkaConfiguration
 
 
-def tweet_producer():
+def tweet_producer() -> None:
     print("Producing tweets...")
     load_dotenv()
 
