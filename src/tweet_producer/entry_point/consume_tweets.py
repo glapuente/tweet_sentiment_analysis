@@ -38,8 +38,8 @@ def tweet_consumer() -> None:
             postgres_configuration=PostgresConfiguration(
                 postgres_db=getenv("POSTGRES_DB", "database"),
                 postgres_table_name=getenv("POSTGRES_TABLE_NAME", "table_name"),
-                postgres_host=getenv("DATABASE_HOST", "localhost"),
-                postgres_user=getenv("DATABASE_USER", "user"),
+                postgres_host=getenv("POSTGRES_HOST", "localhost"),
+                postgres_user=getenv("POSTGRES_USER", "user"),
                 postgres_password=getenv("POSTGRES_PASSWORD", ""),
                 postgres_port=int(getenv("POSTGRES_PORT", "5432")),
             )
