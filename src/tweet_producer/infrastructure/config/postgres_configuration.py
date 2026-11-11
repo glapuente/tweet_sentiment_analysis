@@ -14,3 +14,11 @@ class PostgresConfiguration:
     @property
     def postgres_connection_url(self) -> str:
         return f"jdbc:postgresql://{self.postgres_host}:{self.postgres_port}/{self.postgres_db}"
+
+    @property
+    def postgres_connection_properties(self) -> dict:
+        return {
+            "user": self.postgres_user,
+            "password": self.postgres_password,
+            "driver": self.postgres_driver,
+        }
