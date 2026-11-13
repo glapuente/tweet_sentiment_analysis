@@ -1,7 +1,8 @@
 from abc import ABC, abstractmethod
 from collections.abc import Collection
+from typing import TypeVar
 
-from tweet_producer.domain.model.message import ProcessedMessage
+T = TypeVar("T")
 
 
 class DatabaseMessageRepository(ABC):
@@ -9,7 +10,7 @@ class DatabaseMessageRepository(ABC):
         pass
 
     @abstractmethod
-    def save_message(self, processed_message: ProcessedMessage) -> None: ...
+    def save_message(self, processed_message: T) -> None: ...
 
     @abstractmethod
-    def get_messages(self) -> Collection[ProcessedMessage]: ...
+    def get_messages(self) -> Collection[T]: ...
