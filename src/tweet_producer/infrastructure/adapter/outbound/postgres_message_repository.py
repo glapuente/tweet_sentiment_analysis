@@ -1,5 +1,7 @@
 from collections.abc import Collection
 
+from pyspark.sql import DataFrame
+
 from tweet_producer.application.port.outbound.database_message_repository import (
     DatabaseMessageRepository,
 )
@@ -28,4 +30,4 @@ class PostgresMessageRepository(DatabaseMessageRepository):
         )
 
     def get_messages(self) -> Collection[ProcessedMessage]:
-        return NotImplementedError
+        yield NotImplementedError
