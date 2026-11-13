@@ -20,15 +20,12 @@ class PostgresMessageRepository(DatabaseMessageRepository):
         """
         Function for saving messages to a Postgres database
         """
-        try:
-            processed_message.write.jdbc(
-                url=self._postgres_configuration.postgres_connection_url,
-                table=self._postgres_configuration.postgres_table_name,
-                mode="append",
-                properties=self._postgres_configuration.postgres_connection_properties,
-            )
-        except Exception as e:
-            print(f"Error while saving message: {e}")
+        processed_message.write.jdbc(
+            url=self._postgres_configuration.postgres_connection_url,
+            table=self._postgres_configuration.postgres_table_name,
+            mode="append",
+            properties=self._postgres_configuration.postgres_connection_properties,
+        )
 
     def get_messages(self) -> Collection[ProcessedMessage]:
         return NotImplementedError
