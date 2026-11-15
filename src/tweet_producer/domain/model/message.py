@@ -33,17 +33,18 @@ class RawMessage(Message):
 
 
 @dataclass(frozen=True)
-class ProcessedMessage(Message):
-    username: str
-    text: str
-    published_at: datetime
-    published_from: Location
-
-
-@dataclass(frozen=True)
 class Location:
     latitude: float
     longitude: float
     location_name: str
     country_code: str
     timezone: str
+
+
+@dataclass(frozen=True)
+class ProcessedMessage(Message):
+    username: str
+    text: str
+    published_at: datetime
+    published_from: Location
+
