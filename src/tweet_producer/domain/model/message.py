@@ -40,6 +40,10 @@ class Location:
     country_code: str
     timezone: str
 
+    def __post_init__(self):
+        object.__setattr__(self, "latitude", float(self.latitude))
+        object.__setattr__(self, "longitude", float(self.longitude))
+
 
 @dataclass(frozen=True)
 class ProcessedMessage(Message):
