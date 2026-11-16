@@ -25,4 +25,3 @@ class KafkaMessageProducer(OutboundMessageRepository):
         )
         producer.produce(self._kafka_topic, processed_message.to_json())
         producer.flush()
-        print(processed_message.to_json())

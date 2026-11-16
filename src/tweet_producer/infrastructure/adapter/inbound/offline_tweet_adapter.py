@@ -26,7 +26,6 @@ class OfflineTweetRepository(MessageRepository):
         ) as file:
             reader = csv.reader(file)
             for row in reader:
-                # raw_message = RawMessage(*row)
                 raw_message = RawMessage(
                     sentiment_value=int(row[0]),
                     message_id=int(row[1]),
