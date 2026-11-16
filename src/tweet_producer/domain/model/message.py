@@ -1,7 +1,6 @@
 import json
 from dataclasses import dataclass, fields
 from datetime import datetime
-from mypyc.primitives import float_ops
 
 
 @dataclass(frozen=True)
@@ -51,4 +50,3 @@ class ProcessedMessage(Message):
     text: str
     published_at: datetime
     published_from: Location
-

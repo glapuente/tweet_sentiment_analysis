@@ -6,7 +6,7 @@ from datetime import datetime
 from faker import Faker
 
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from tweet_producer.domain.model.message import ProcessedMessage, RawMessage, Location
+from tweet_producer.domain.model.message import Location, ProcessedMessage, RawMessage
 
 
 class OfflineTweetRepository(MessageRepository):
