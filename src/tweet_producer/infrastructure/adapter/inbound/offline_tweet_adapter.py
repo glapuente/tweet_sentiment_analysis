@@ -2,6 +2,7 @@ import csv
 import time
 from collections.abc import Generator
 from datetime import datetime
+from typing import cast
 
 from faker import Faker
 
@@ -41,9 +42,21 @@ class OfflineTweetRepository(MessageRepository):
     @staticmethod
     def __add_fake_address(raw_tweet: RawMessage) -> ProcessedMessage:
         fake = Faker()
+        location_data = cast(
+            tuple[float, float, str, str, str],
+            fake.location_on_land(),
+        )
+
+        latitude, longitude, location_name, country_code, timezone = location_data
         return ProcessedMessage(
             raw_tweet.username,
             raw_tweet.message_text,
             raw_tweet.published_at,
-            Location(*fake.location_on_land()),
+            Location(
+                latitude,
+                longitude,
+                location_name,
+                country_code,
+                timezone,
+            ),
         )
