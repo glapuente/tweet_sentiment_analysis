@@ -7,7 +7,7 @@ import pyspark.sql.types as T
 PYTHON_TO_PYSPARK_MAPPING = {
     str: T.StringType(),
     int: T.IntegerType(),
-    float: T.DoubleType(),
+    float: T.FloatType(),
     bool: T.BooleanType(),
     datetime: T.TimestampType(),
 }
