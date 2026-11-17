@@ -19,17 +19,17 @@ class Message:
         Returns the attributes of a Dataclass as a list of strings
         In case of nested classes it extracts them as simple fields in the single list
         """
+
         def extract_fields(dataclass_type, prefix=""):
             result = []
             for field in fields(dataclass_type):
                 name = f"{prefix}{field.name}"
                 if is_dataclass(field.type):
-                    result.extend(
-                        extract_fields(field.type, prefix=f"{name}.")
-                    )
+                    result.extend(extract_fields(field.type, prefix=f"{name}."))
                 else:
                     result.append(name)
             return result
+
         return extract_fields(cls)
 
 
