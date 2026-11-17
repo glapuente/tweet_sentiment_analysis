@@ -57,7 +57,10 @@ class SparkKafkaMessageConsumer(MessageRepository):
                 )(F.col("json_message.text")),
             )
             .select(
-                F.col("json_message.*"),
+                *[
+                    F.col(f"json_message.{col}")
+                    for col in ProcessedMessage.message_fields()
+                ],
                 F.col("sentiment_analysis.*"),
                 F.col("topic"),
                 F.col("partition"),
