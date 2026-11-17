@@ -1,5 +1,5 @@
 import json
-from dataclasses import dataclass, fields
+from dataclasses import dataclass, fields, is_dataclass
 from datetime import datetime
 
 
@@ -17,8 +17,20 @@ class Message:
     def message_fields(cls) -> list[str]:
         """
         Returns the attributes of a Dataclass as a list of strings
+        In case of nested classes it extracts them as simple fields in the single list
         """
-        return [field.name for field in fields(cls)]
+
+        def extract_fields(dataclass_type, prefix=""):
+            result = []
+            for field in fields(dataclass_type):
+                name = f"{prefix}{field.name}"
+                if is_dataclass(field.type):
+                    result.extend(extract_fields(field.type, prefix=f"{name}."))
+                else:
+                    result.append(name)
+            return result
+
+        return extract_fields(cls)
 
 
 @dataclass(frozen=True)
