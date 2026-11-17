@@ -2,11 +2,12 @@ import csv
 import time
 from collections.abc import Generator
 from datetime import datetime
+from typing import cast
 
 from faker import Faker
 
 from tweet_producer.application.port.inbound.message_repository import MessageRepository
-from tweet_producer.domain.model.message import ProcessedMessage, RawMessage
+from tweet_producer.domain.model.message import Location, ProcessedMessage, RawMessage
 
 
 class OfflineTweetRepository(MessageRepository):
@@ -26,7 +27,6 @@ class OfflineTweetRepository(MessageRepository):
         ) as file:
             reader = csv.reader(file)
             for row in reader:
-                # raw_message = RawMessage(*row)
                 raw_message = RawMessage(
                     sentiment_value=int(row[0]),
                     message_id=int(row[1]),
@@ -42,9 +42,21 @@ class OfflineTweetRepository(MessageRepository):
     @staticmethod
     def __add_fake_address(raw_tweet: RawMessage) -> ProcessedMessage:
         fake = Faker()
+        location_data = cast(
+            tuple[float, float, str, str, str],
+            fake.location_on_land(),
+        )
+
+        latitude, longitude, location_name, country_code, timezone = location_data
         return ProcessedMessage(
             raw_tweet.username,
             raw_tweet.message_text,
             raw_tweet.published_at,
-            fake.address(),
+            Location(
+                latitude,
+                longitude,
+                location_name,
+                country_code,
+                timezone,
+            ),
         )

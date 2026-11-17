@@ -5,7 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/glapuente/tweet_sentiment_analysis/compare/v0.7.0...HEAD)
+## [Unreleased](https://github.com/glapuente/tweet_sentiment_analysis/compare/v0.7.1...HEAD)
+
+## [0.7.1](https://github.com/glapuente/tweet_sentiment_analysis/compare/v0.7.0...v0.7.1) - 2026-11-16
+### Fixed
+- Use a more complex location structure for message location consisting of `latitude, longitude, location_name, country_code, timezone`.
 
 ## [0.7.0](https://github.com/glapuente/tweet_sentiment_analysis/compare/v0.6.0...v0.7.0) - 2026-11-09
 ### Changed

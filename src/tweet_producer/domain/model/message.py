@@ -32,8 +32,21 @@ class RawMessage(Message):
 
 
 @dataclass(frozen=True)
+class Location:
+    latitude: float
+    longitude: float
+    location_name: str
+    country_code: str
+    timezone: str
+
+    def __post_init__(self):
+        object.__setattr__(self, "latitude", float(self.latitude))
+        object.__setattr__(self, "longitude", float(self.longitude))
+
+
+@dataclass(frozen=True)
 class ProcessedMessage(Message):
     username: str
     text: str
     published_at: datetime
-    published_from: str
+    published_from: Location

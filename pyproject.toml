@@ -1,6 +1,6 @@
 [project]
 name = "tweet-sentiment-analysis"
-version = "0.7.0"
+version = "0.7.1"
 description = "Simple self-contained project for sentiment analysis on social media messages"
 authors = [
     {name = "glapuente",email = "glapuentevalea@gmail.com"}
