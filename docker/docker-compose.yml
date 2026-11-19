@@ -62,7 +62,7 @@ services:
     volumes:
       - ../data:/app/data:ro
     command: ["tweet_producer"]
-    restart: no
+    restart: "no"
 
   postgres:
     image: postgres:latest
@@ -90,7 +90,7 @@ services:
     volumes:
       - ../data:/app/data:ro
     command: [ "tweet_consumer" ]
-    restart: no
+    restart: "no"
 
   metabase:
     image: metabase/metabase:latest
