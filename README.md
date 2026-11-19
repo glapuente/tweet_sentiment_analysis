@@ -53,17 +53,20 @@ Some GitHub Actions will be defined to check the typing, lint and formatting of 
 The application is made to be run locally, however, checks on pull requests must be met to ensure we don't break any previous features.
 
 # How to run?
-In order to run the project, you must have Docker installed. Since the OS I used to develop it is a Windows machine, I created some helper batch scripts.
+In order to run the project, you must have Docker and Docker Compose installed.
+I created some helper scripts to launch the project in Windows (through a batch scripts) and Linux (through bash scripts).
 This will create several Docker containers with the different services of the application.
 The main idea is that the project is auto-contained and that it can be run anywhere.
 
 To run the project you can run in a terminal:
 ```batch
-.\scripts\run_local.bat
+.\scripts\run_local.bat  # in Windows systems
+./scripts/run_local.sh  # in Linux systems
 ```
 
 To stop the project and drop all the containers, run in a terminal:
 ```batch
-.\scripts\stop_local.bat
+.\scripts\stop_local.bat  # in Windows systems
+./scripts/stop_local.sh  # in Linux systems
 ```
  
