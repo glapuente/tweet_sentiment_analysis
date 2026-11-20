@@ -4,6 +4,15 @@ The initial idea was to fetch Twitter data in a streaming manner, but because [t
 Additionally, some simple dashboards can be shown too.
 In order to keep the project as open and freely available as possible, free or open data sources are used, along with open source projects. 
 
+# Running the project
+The project is aimed to be auto-contained through Docker Compose and some helper scripts.
+When all the containers are up-and-running by the Docker Compose process, messages will start flowing in and out of Kafka and into a PySpark process which computes a sentiment value (the possible values being `positive | negative | neutral`) for each message based on the feeling of the text.
+
+Then, the result is stored in a PostgreSQL database and along with Metabase some dashboards can be made. Metabase is accessible through a browser in `http://localhost:3000` and after following a simple configuration walkthrough we can begin creating dashboards.
+
+The following is an example dashboard:
+<img alt="metabase_example.gif" src="docs/metabase_example.gif" />
+
 # AI usage
 The use of AI in this particular project is close to none in order to slowly solve the problems or issues that may arise.
 It is developed just like we did in the good-old-days, slowly, no rush, relaxed, ... Like a puzzle!

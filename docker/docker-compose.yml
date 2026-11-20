@@ -62,7 +62,7 @@ services:
     volumes:
       - ../data:/app/data:ro
     command: ["tweet_producer"]
-    restart: no
+    restart: "no"
 
   postgres:
     image: postgres:latest
@@ -75,6 +75,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
 
   message-consumer:
     container_name: message-consumer
@@ -89,8 +90,23 @@ services:
     volumes:
       - ../data:/app/data:ro
     command: [ "tweet_consumer" ]
-    restart: no
+    restart: "no"
 
+  metabase:
+    image: metabase/metabase:latest
+    container_name: metabase-analytics
+    depends_on:
+      postgres:
+        condition: service_started
+    environment:
+      MB_DB_TYPE: ${METABASE_DB_TYPE:-postgres}
+      MB_DB_DBNAME: ${METABASE_DB_DBNAME:-postgres-metabase}
+      MB_DB_HOST: ${POSTGRES_DB:-postgres-analytics}
+      MB_DB_PORT: 5432
+      MB_DB_USER: ${POSTGRES_USER:-admin}
+      MB_DB_PASS: ${POSTGRES_PASSWORD:-admin}
+    ports:
+      - "3000:3000"
 
 volumes:
   kafka_data:
